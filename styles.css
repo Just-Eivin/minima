@@ -8,6 +8,7 @@
     border: 1px solid black;
     height: 512px;
     width: 512px;
-    image-rendering: pixelated;
+    image-rendering: auto;
     image-rendering: crisp-edges;
+    image-rendering: pixelated;
 }
