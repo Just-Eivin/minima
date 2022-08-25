@@ -19,12 +19,27 @@ const PIXEL_COUNT = 32; // Number of pixels on each side => The actual resolutio
 const pixelRatio = pixelCanvas.clientWidth / PIXEL_COUNT;
 const ctx = pixelCanvas.getContext('2d');
 const canvasBoundingClientRect = pixelCanvas.getBoundingClientRect();
+let isDrawing = false;
 
-
-pixelCanvas.addEventListener('click', (e) => {
+function drawPixel (e) {
     const mousePosition = [e.clientX - canvasBoundingClientRect.left, e.clientY - canvasBoundingClientRect.top]; // mousePosition[0] == canvasX, mousePosition[1] == canvasY
     const pixelCoordX = Math.floor(mousePosition[0] / pixelRatio);
     const pixelCoordY = Math.floor(mousePosition[1] / pixelRatio);
-
     ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+}
+
+
+pixelCanvas.addEventListener('click', (e) => {
+    drawPixel(e);
+})
+
+pixelCanvas.addEventListener('mousedown', (e) => {
+    isDrawing = true;
+    pixelCanvas.addEventListener('mousemove', (e) => {
+        if(!isDrawing) return;
+        drawPixel(e);
+    })
+    pixelCanvas.addEventListener('mouseup', () => {
+        isDrawing = false;
+    })
 })
