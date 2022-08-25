@@ -29,4 +29,7 @@ pixelCanvas.addEventListener('mousedown', (e) => {
     document.addEventListener('mouseup', () => {
         isDrawing = false;
     })
+    window.oncontextmenu = function () {
+        isDrawing = false;
+      }
 })
