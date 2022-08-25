@@ -28,7 +28,6 @@ function drawPixel (e) {
     ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
 }
 
-
 pixelCanvas.addEventListener('click', (e) => {
     drawPixel(e);
 })
@@ -39,7 +38,7 @@ pixelCanvas.addEventListener('mousedown', (e) => {
         if(!isDrawing) return;
         drawPixel(e);
     })
-    pixelCanvas.addEventListener('mouseup', () => {
+    document.addEventListener('mouseup', () => {
         isDrawing = false;
     })
 })
