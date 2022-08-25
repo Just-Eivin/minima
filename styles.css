@@ -1,0 +1,9 @@
+#wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 15vh;
+}
+
+#pixel-canvas {
+    border: 1px solid black;
+}
