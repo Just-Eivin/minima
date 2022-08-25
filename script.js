@@ -8,7 +8,7 @@
 //---
 
 // Paint 1 pixel with click
-    // Event listener for click
+    // Event listener for clickg
         // Translate clientPOS to canvasPOS
         // Paint Rect on translated position
     //---
