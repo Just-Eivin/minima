@@ -6,10 +6,11 @@ const pixelCanvas = document.getElementById('pixel-canvas');
 const PIXEL_COUNT = 32; // Number of pixels on each side => The actual resolution of the image
 const pixelRatio = pixelCanvas.clientWidth / PIXEL_COUNT;
 const ctx = pixelCanvas.getContext('2d');
-const canvasBoundingClientRect = pixelCanvas.getBoundingClientRect();
+//const canvasBoundingClientRect = pixelCanvas.getBoundingClientRect();
 let isDrawing = false;
 
 function drawPixel(e) {
+    const canvasBoundingClientRect = pixelCanvas.getBoundingClientRect();
     const mousePosition = [e.clientX - canvasBoundingClientRect.left, e.clientY - canvasBoundingClientRect.top]; // mousePosition[0] == canvasX, mousePosition[1] == canvasY
     const pixelCoordX = Math.floor(mousePosition[0] / pixelRatio);
     const pixelCoordY = Math.floor(mousePosition[1] / pixelRatio);
