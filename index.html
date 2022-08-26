@@ -12,14 +12,28 @@
         <div id="wrapper">
             <div id="control-panel">
                 <div id="color-section">
-                    <div class="color"></div>
-                    <div class="color"></div>
-                    <div class="color"></div>
-                    <div class="color"></div>
-                    <div class="color"></div>
-                    <div class="color"></div>
-                    <div class="color"></div>
-                    <div class="color"></div>
+                    <p class="label">Color Palette</p>
+                    <div id="color-grid">
+                        <div class="color red"></div>
+                        <div class="color green"></div>
+                        <div class="color blue"></div>
+                        <div class="color yellow"></div>
+                        <div class="color brown"></div>
+                        <div class="color purple"></div>
+                        <div class="color white"></div>
+                        <div class="color gray"></div>
+                        <div class="color black"></div>
+                    </div>
+                    <p>Current Color</p>
+                    <div class="current-color"></div>
+                    <p>Color Picker</p>
+                    <input type="color">
+                    <p>Color History</p>
+                    <div id="color-history">
+                        <div class="current-color red"></div>
+                        <div class="current-color gray"></div>
+                        <div class="current-color yellow"></div>
+                    </div>
                 </div>
             </div>
             <canvas id="pixel-canvas" width="32" height="32"></canvas>
