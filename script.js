@@ -16,20 +16,22 @@ function drawPixel(e) {
     ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
 }
 
-pixelCanvas.addEventListener('click', (e) => {
-    drawPixel(e);
-})
-
 pixelCanvas.addEventListener('mousedown', (e) => {
     isDrawing = true;
+
     pixelCanvas.addEventListener('mousemove', (e) => {
         if (!isDrawing) return;
         drawPixel(e);
     })
+
+    drawPixel(e);
+
     document.addEventListener('mouseup', () => {
         isDrawing = false;
     })
+
     window.oncontextmenu = function () {
         isDrawing = false;
       }
 })
+
