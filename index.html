@@ -1,42 +1,77 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <link rel="stylesheet" href="./styles.css">
-        <script src="./script.js" defer></script>
-        <meta charset="UTF-8">
-        <title>Pixel Editor</title>
-    </head>
 
-    <body>
-        <div id="wrapper">
-            <div id="control-panel">
-                <div id="color-section">
-                    <p class="label">Color Palette</p>
-                    <div id="color-grid">
-                        <div class="color red"></div>
-                        <div class="color green"></div>
-                        <div class="color blue"></div>
-                        <div class="color yellow"></div>
-                        <div class="color brown"></div>
-                        <div class="color purple"></div>
-                        <div class="color white"></div>
-                        <div class="color gray"></div>
-                        <div class="color black"></div>
-                    </div>
-                    <p>Current Color</p>
-                    <div class="current-color"></div>
-                    <p>Color Picker</p>
-                    <input type="color">
-                    <p>Color History</p>
-                    <div id="color-history">
-                        <div class="current-color red"></div>
-                        <div class="current-color gray"></div>
-                        <div class="current-color yellow"></div>
-                    </div>
+<head>
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./script.js" defer></script>
+    <meta charset="UTF-8">
+    <title>Pixel Editor</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="control-panel">
+            <div class="section">
+                <p class="label">COLOR PALETTE</p>
+                <div id="color-grid">
+                    <div class="color red"></div>
+                    <div class="color green"></div>
+                    <div class="color blue"></div>
+                    <div class="color yellow"></div>
+                    <div class="color brown"></div>
+                    <div class="color purple"></div>
+                    <div class="color white"></div>
+                    <div class="color gray"></div>
+                    <div class="color black"></div>
+                </div>
+                <p class="label">CURRENT COLOR</p>
+                <div class="current-color"></div>
+                <p class="label">COLOR PICKER</p>
+                <input type="color">
+                <p class="label">COLOR HISTORY</p>
+                <div id="color-history">
+                    <div class="current-color white"></div>
+                    <div class="current-color white"></div>
+                    <div class="current-color white"></div>
                 </div>
             </div>
-            <canvas id="pixel-canvas" width="32" height="32"></canvas>
         </div>
-    </body>
+        <canvas id="pixel-canvas" width="32" height="32"></canvas>
+        <div id="misc-panel">
+            <div class="section">
+                <div>
+                    <span style="margin: 0" class="label">BRUSH SIZE: </span>
+                    <span id="brush-size">3 x 3</span>
+                </div>
+                <input id="brush-range" type="range" value="1" min="0" max="5">
+                <div>
+                    <button class="button">BRUSH</button>
+                    <button class="button">ERASER</button>
+                </div>
+                <button style="width: 209.61px;" class="button">CLEAR</button>
+                <button style="width: 209.61px;"  class="button">SETTINGS</button>
+                <button style="width: 209.61px;"  class="button">RAINBOW</button>
+                <div>
+                    <button class="button">GRID</button>
+                    <button class="button">COORDINATES</button>
+                </div>
+                    <button class="button export">EXPORT</button>
+                <p class="label">RESOLUTION</p>
+                <select name="resolution" id="resolution">
+                    <option value="8">8 x 8</option>
+                    <option value="16">16 x 16</option>
+                    <option value="32">32 x 32</option>
+                    <option value="64">64 x 64</option>
+                </select>
+                <p class="label">THEME</p>
+                <div>
+                    <button class="button">LIGHT</button>
+                    <button class="button">DARK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>
