@@ -10,7 +10,7 @@ ${placeholder_name} is a web application that is used to create simple pixel art
 
 ### MISCELLANEOUS PANEL
 
-- [ ] INTERACTIVE BRUSH OPTIONS WITH DISPLAY
+- [x] INTERACTIVE BRUSH OPTIONS WITH DISPLAY
 - [ ] ERASER
 - [ ] CLEARING THE DRAWING BOARD
 - [ ] ANIMATED EXPANSION OF SETTINGS
