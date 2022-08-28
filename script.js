@@ -35,3 +35,11 @@ pixelCanvas.addEventListener('mousedown', (e) => {
     }
 })
 
+
+const gridColors = document.querySelectorAll('.color');
+
+gridColors.forEach(color => {
+    color.addEventListener('click', () => {
+        ctx.fillStyle = window.getComputedStyle(color).backgroundColor;
+    })
+})
