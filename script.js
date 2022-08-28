@@ -72,6 +72,37 @@ function drawPixel(e) {
         }
     }
 
+    else if (drawingMode == 'rainbow') {
+        let randomRGB = [Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255)];
+        ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
+        switch (brushSize) {
+            case '1b':
+                ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+                break;
+            case '2b':
+                ctx.fillRect(pixelCoordX, pixelCoordY, 2, 2);
+                break;
+            case '3b':
+                ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX - 1, pixelCoordY + 1, 1, 1);
+                ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+                ctx.fillRect(pixelCoordX + 1, pixelCoordY + 1, 1, 1);
+                ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX - 1, pixelCoordY - 1, 1, 1);
+                ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+                ctx.fillRect(pixelCoordX + 1, pixelCoordY - 1, 1, 1);
+                break;
+            case '3c':
+                ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+                ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+                break;
+        }
+    }
+
 }
 
 pixelCanvas.addEventListener('mousedown', (e) => {
@@ -195,6 +226,11 @@ const clearButton = document.getElementById('clear-button');
 
 clearButton.addEventListener('click', () => {
     if(confirm(`Do you wish to clear the drawing board? \nClearing the drawing board will remove all your progress.`)) ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
+})
+
+const rainbowButton = document.getElementById('rainbow-button');
+rainbowButton.addEventListener('click', () => {
+    drawingMode = 'rainbow';
 })
 
 

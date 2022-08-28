@@ -14,7 +14,7 @@ ${placeholder_name} is a web application that is used to create simple pixel art
 - [x] ERASER
 - [x] CLEARING THE DRAWING BOARD
 - [ ] ANIMATED EXPANSION OF SETTINGS
-- [ ] RAINBOW DRAWING MODE
+- [x] RAINBOW DRAWING MODE
 - [ ] TURNABLE GRID & COORDINATES
 - [ ] EXPORTING VIA BUTTON
 - [ ] CHANGEABLE RESOLUTION
