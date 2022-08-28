@@ -14,49 +14,64 @@ function drawPixel(e) {
     const pixelCoordX = Math.floor(mousePosition[0] / pixelRatio);
     const pixelCoordY = Math.floor(mousePosition[1] / pixelRatio);
 
-    switch (brushSize) {
-        case '1b':
-            ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
-            break;
-        case '2b':
-            ctx.fillRect(pixelCoordX, pixelCoordY, 2, 2);
-            break;
-        case '3b':
-            ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
-            ctx.fillRect(pixelCoordX - 1, pixelCoordY + 1, 1, 1);
-            ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
-            ctx.fillRect(pixelCoordX + 1, pixelCoordY + 1, 1, 1);
-            ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
-            ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
-            ctx.fillRect(pixelCoordX - 1, pixelCoordY - 1, 1, 1);
-            ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
-            ctx.fillRect(pixelCoordX + 1, pixelCoordY - 1, 1, 1);
-            break;
-        case '3c':
-            ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
-            ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
-            ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
-            ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
-            ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
-            break;
-        case '4b':
-            ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
-            ctx.fillRect(pixelCoordX - 1, pixelCoordY + 1, 1, 1);
-            ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
-            ctx.fillRect(pixelCoordX + 1, pixelCoordY + 1, 1, 1);
-            ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
-            ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
-            ctx.fillRect(pixelCoordX - 1, pixelCoordY - 1, 1, 1);
-            ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
-            ctx.fillRect(pixelCoordX + 1, pixelCoordY - 1, 1, 1);
-
-            ctx.fillRect(pixelCoordX - 2, pixelCoordY - 2, 1, 1);
-            ctx.fillRect(pixelCoordX - 1, pixelCoordY - 2, 1, 1);
-            ctx.fillRect(pixelCoordX - 0, pixelCoordY - 2, 1, 1);
-            ctx.fillRect(pixelCoordX + 1, pixelCoordY - 2, 1, 1);
-            break;
-
+    if (drawingMode == 'brush') {
+        switch (brushSize) {
+            case '1b':
+                ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+                break;
+            case '2b':
+                ctx.fillRect(pixelCoordX, pixelCoordY, 2, 2);
+                break;
+            case '3b':
+                ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX - 1, pixelCoordY + 1, 1, 1);
+                ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+                ctx.fillRect(pixelCoordX + 1, pixelCoordY + 1, 1, 1);
+                ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX - 1, pixelCoordY - 1, 1, 1);
+                ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+                ctx.fillRect(pixelCoordX + 1, pixelCoordY - 1, 1, 1);
+                break;
+            case '3c':
+                ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+                ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+                ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+                break;
+        }
     }
+
+    else if (drawingMode == 'eraser') {
+        switch (brushSize) {
+            case '1b':
+                ctx.clearRect(pixelCoordX, pixelCoordY, 1, 1);
+                break;
+            case '2b':
+                ctx.clearRect(pixelCoordX, pixelCoordY, 2, 2);
+                break;
+            case '3b':
+                ctx.clearRect(pixelCoordX, pixelCoordY, 1, 1);
+                ctx.clearRect(pixelCoordX - 1, pixelCoordY + 1, 1, 1);
+                ctx.clearRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+                ctx.clearRect(pixelCoordX + 1, pixelCoordY + 1, 1, 1);
+                ctx.clearRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+                ctx.clearRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+                ctx.clearRect(pixelCoordX - 1, pixelCoordY - 1, 1, 1);
+                ctx.clearRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+                ctx.clearRect(pixelCoordX + 1, pixelCoordY - 1, 1, 1);
+                break;
+            case '3c':
+                ctx.clearRect(pixelCoordX, pixelCoordY, 1, 1);
+                ctx.clearRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+                ctx.clearRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+                ctx.clearRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+                ctx.clearRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+                break;
+        }
+    }
+
 }
 
 pixelCanvas.addEventListener('mousedown', (e) => {
@@ -159,12 +174,20 @@ brushSlider.addEventListener('input', () => {
             brushDisplayText.textContent = '3 x 3 CROSS';
             brushSize = '3c';
             break;
-
-        case '5':
-            brushDisplayText.textContent = '4 x 4 BLOCK';
-            brushSize = '4b';
-            break;
     }
+})
+
+const brushButton = document.getElementById('brush-button');
+const eraserButton = document.getElementById('eraser-button');
+
+let drawingMode = 'brush';
+
+brushButton.addEventListener('click', () => {
+    drawingMode = 'brush';
+})
+
+eraserButton.addEventListener('click', () => {
+    drawingMode = 'eraser';
 })
 
 
