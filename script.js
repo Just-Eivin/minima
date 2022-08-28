@@ -51,7 +51,40 @@ gridColors.forEach(color => {
 
 const colorPicker = document.getElementById('color-picker');
 
+let hexColors = ['#FFFFFF', '#FFFFFF', '#FFFFFF'];
+
 colorPicker.addEventListener('change', () => {
     ctx.fillStyle = colorPicker.value;
     updateCurrentColor();
+    updateAndShiftColorHistory();
 })
+
+
+function updateAndShiftColorHistory () {
+    let colorHistory = document.getElementsByClassName('saved-color');
+    let foundColor = false;
+    
+    hexColors.forEach(color => {
+        if(colorPicker.value == color) foundColor = true;
+    })
+
+    if(foundColor) return;
+
+    colorHistory[2].style.backgroundColor = colorHistory[1].style.backgroundColor;
+    hexColors[2] = hexColors[1];
+    colorHistory[1].style.backgroundColor = colorHistory[0].style.backgroundColor;
+    hexColors[1] = hexColors[0];
+    colorHistory[0].style.backgroundColor = colorPicker.value;
+    hexColors[0] = colorPicker.value;
+}
+
+const savedColors = document.querySelectorAll('.saved-color');
+savedColors.forEach(savedColor => {
+    savedColor.addEventListener('click', () => {
+        ctx.fillStyle = window.getComputedStyle(savedColor).backgroundColor;
+        updateCurrentColor();
+    })
+})
+
+
+
