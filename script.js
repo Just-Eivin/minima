@@ -191,3 +191,10 @@ eraserButton.addEventListener('click', () => {
 })
 
 
+const clearButton = document.getElementById('clear-button');
+
+clearButton.addEventListener('click', () => {
+    if(confirm(`Do you wish to clear the drawing board? \nClearing the drawing board will remove all your progress.`)) ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
+})
+
+

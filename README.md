@@ -12,7 +12,7 @@ ${placeholder_name} is a web application that is used to create simple pixel art
 
 - [x] INTERACTIVE BRUSH OPTIONS WITH DISPLAY
 - [x] ERASER
-- [ ] CLEARING THE DRAWING BOARD
+- [x] CLEARING THE DRAWING BOARD
 - [ ] ANIMATED EXPANSION OF SETTINGS
 - [ ] RAINBOW DRAWING MODE
 - [ ] TURNABLE GRID & COORDINATES
