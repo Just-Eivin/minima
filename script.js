@@ -8,6 +8,10 @@ const pixelRatio = pixelCanvas.clientWidth / PIXEL_COUNT;
 const ctx = pixelCanvas.getContext('2d');
 let isDrawing = false;
 
+function randomColor () {
+    return [Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255)];
+}
+
 function drawPixel(e) {
     const canvasBoundingClientRect = pixelCanvas.getBoundingClientRect();
     const mousePosition = [e.clientX - canvasBoundingClientRect.left, e.clientY - canvasBoundingClientRect.top]; // mousePosition[0] == canvasX, mousePosition[1] == canvasY
@@ -73,7 +77,7 @@ function drawPixel(e) {
     }
 
     else if (drawingMode == 'rainbow') {
-        let randomRGB = [Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255)];
+        let randomRGB = randomColor();
         ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
         switch (brushSize) {
             case '1b':
@@ -84,20 +88,44 @@ function drawPixel(e) {
                 break;
             case '3b':
                 ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX - 1, pixelCoordY + 1, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX + 1, pixelCoordY + 1, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX - 1, pixelCoordY - 1, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX + 1, pixelCoordY - 1, 1, 1);
                 break;
             case '3c':
                 ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+                randomRGB = randomColor();
+                ctx.fillStyle = `rgb(${randomRGB[0]}, ${randomRGB[1]}, ${randomRGB[2]})`
                 ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
                 break;
         }
@@ -134,6 +162,7 @@ function updateCurrentColor() {
 gridColors.forEach(color => {
     color.addEventListener('click', () => {
         ctx.fillStyle = window.getComputedStyle(color).backgroundColor;
+        drawingMode = 'brush';
         updateCurrentColor();
     })
 })
@@ -144,6 +173,7 @@ let hexColors = ['#FFFFFF', '#FFFFFF', '#FFFFFF'];
 
 colorPicker.addEventListener('change', () => {
     ctx.fillStyle = colorPicker.value;
+    drawingMode = 'brush';
     updateCurrentColor();
     updateAndShiftColorHistory();
 })
@@ -171,6 +201,7 @@ const savedColors = document.querySelectorAll('.saved-color');
 savedColors.forEach(savedColor => {
     savedColor.addEventListener('click', () => {
         ctx.fillStyle = window.getComputedStyle(savedColor).backgroundColor;
+        drawingMode = 'brush';
         updateCurrentColor();
     })
 })
