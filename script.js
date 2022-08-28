@@ -2,8 +2,9 @@
  *  @type HTMLCanvasElement
  */
 
+const DEFAULT_RESOLUTION = 32;
 const pixelCanvas = document.getElementById('pixel-canvas');
-let canvasPixelResolution = 32; // Number of pixels on each side => The actual resolution of the image
+let canvasPixelResolution = DEFAULT_RESOLUTION; // Number of pixels on each side => The actual resolution of the image
 let pixelRatio = pixelCanvas.clientWidth / canvasPixelResolution;
 const ctx = pixelCanvas.getContext('2d');
 let isDrawing = false;
@@ -312,6 +313,7 @@ const resolutionSettings = document.getElementById('resolution');
 
 resolutionSettings.addEventListener('change', () => {
     if (confirm(`Changing the resolution will clear the whole canvas and delete your drawing. \nDo you wish to proceed?`)) {
+        if(gridStatus == 'on' || gridStatus == 'hidden') destroyGrid();
         ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
         canvasPixelResolution = parseInt(resolutionSettings.value);
         pixelRatio = pixelCanvas.clientWidth / canvasPixelResolution;
@@ -340,4 +342,51 @@ function resToIndex(res) {
             break;
 
     }
+}
+
+const gridButton = document.getElementById('grid-button');
+let gridOverlay = document.getElementById('grid');
+let gridStatus = 'off';
+
+gridButton.addEventListener('click', () => {
+    switch(gridStatus) {
+        case 'off':
+            createGrid();
+            gridStatus = 'on';
+            console.log(gridStatus);
+            break;
+        case 'hidden':
+            gridOverlay.style.visibility = 'visible';
+            console.log('grid was hidden, turning it on');
+            gridStatus = 'on';
+            console.log(gridStatus);
+            break;
+        case 'on':
+            gridOverlay.style.visibility = 'hidden';
+            gridStatus = 'hidden';
+            console.log(gridStatus);
+
+    }
+})
+
+
+function createGrid() {
+    gridOverlay.style.gridTemplateColumns = `repeat(${canvasPixelResolution}, 1fr)`;
+    gridOverlay.style.gridTemplateRows = `repeat(${canvasPixelResolution}, 1fr)`;
+    let amountOfSquares = canvasPixelResolution * canvasPixelResolution;
+    for (i = 1; i <= amountOfSquares; i++) {
+        const newSquare = document.createElement('div');
+        newSquare.classList.add('grid-pixel');
+        newSquare.style.width = `${pixelRatio-2}px`;
+        newSquare.style.height = `${pixelRatio-2}px`;
+        gridOverlay.appendChild(newSquare);
+    }
+}
+
+function destroyGrid() {
+    gridStatus = 'off';
+    let gridPixels = document.querySelectorAll('.grid-pixel');
+    gridPixels.forEach(pixel => {
+        pixel.remove();
+    })
 }

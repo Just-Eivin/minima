@@ -53,6 +53,21 @@
 }
 
 
+#grid {
+    position: absolute;
+    width: 512px;
+    height: 512px;
+    display: grid;
+    pointer-events: none;
+}
+
+.grid-pixel {
+    width: 14px;
+    height: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
 .section {
     display: flex;
     flex-direction: column;
