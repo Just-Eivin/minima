@@ -264,4 +264,32 @@ rainbowButton.addEventListener('click', () => {
     drawingMode = 'rainbow';
 })
 
+const infoButton = document.getElementById('info-button');
+const infoText = document.getElementById('info-text');
+infoText.style.display = 'none';
+
+function clamp(val, min, max) {
+    return val > max ? max : val < min ? min : val;
+}
+
+pixelCanvas.addEventListener('mousemove', (e) => {
+    const canvasBoundingClientRect = pixelCanvas.getBoundingClientRect();
+    const mousePosition = [e.clientX - canvasBoundingClientRect.left, e.clientY - canvasBoundingClientRect.top]; // mousePosition[0] == canvasX, mousePosition[1] == canvasY
+    const pixelCoordX = Math.floor(mousePosition[0] / pixelRatio);
+    const pixelCoordY = Math.floor(mousePosition[1] / pixelRatio);
+    if(pixelCoordX > 32) {
+
+    }
+    infoText.textContent = `Coordinates: [${clamp((pixelCoordX + 1), 1, 32)}, ${clamp((pixelCanvas.height - pixelCoordY), 1, 32)}]`
+    pixelCanvas.addEventListener('mouseleave', () => {
+        infoText.textContent = `Coordinates: Out of Bounds`;
+    })
+})
+infoButton.addEventListener('click', () => {
+    if(infoText.style.display =='none') {
+        infoText.style.display = 'block';
+    }
+    else infoText.style.display = 'none';
+
+})
 

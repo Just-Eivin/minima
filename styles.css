@@ -29,6 +29,11 @@
     background-color: white;
 }
 
+#info-text {
+    text-align: right;
+    color: darkgray;
+    font-size: 12px;
+}
 
 #color-grid {
     display: grid;

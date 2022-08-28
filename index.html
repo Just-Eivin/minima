@@ -37,7 +37,11 @@
                 </div>
             </div>
         </div>
-        <canvas id="pixel-canvas" width="32" height="32"></canvas>
+        <div>
+            <canvas id="pixel-canvas" width="32" height="32"></canvas>
+            <p id="info-text">Coordinates: [0, 0]</p>
+        </div>
+
         <div id="misc-panel">
             <div class="section">
                 <div>
@@ -56,7 +60,7 @@
                     <button id="grid-button" class="button">GRID</button>
                     <button id="info-button" class="button">INFO</button>
                 </div>
-                    <button class="button export">EXPORT</button>
+                <button class="button export">EXPORT</button>
                 <p class="label">RESOLUTION</p>
                 <select name="resolution" id="resolution">
                     <option value="8">8 x 8</option>
@@ -72,6 +76,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
