@@ -319,6 +319,7 @@ resolutionSettings.addEventListener('change', () => {
         pixelRatio = pixelCanvas.clientWidth / canvasPixelResolution;
         pixelCanvas.width = canvasPixelResolution;
         pixelCanvas.height = canvasPixelResolution;
+        updateCurrentColor();
     } else {
         resolutionSettings.selectedIndex = resToIndex(canvasPixelResolution);
     }
