@@ -42,7 +42,6 @@ function updateCurrentColor () {
     currentColor.style.backgroundColor =  ctx.fillStyle;
 }
 
-
 gridColors.forEach(color => {
     color.addEventListener('click', () => {
         ctx.fillStyle = window.getComputedStyle(color).backgroundColor;
@@ -50,4 +49,9 @@ gridColors.forEach(color => {
     })
 })
 
+const colorPicker = document.getElementById('color-picker');
 
+colorPicker.addEventListener('change', () => {
+    ctx.fillStyle = colorPicker.value;
+    updateCurrentColor();
+})
