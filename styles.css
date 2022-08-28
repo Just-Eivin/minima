@@ -76,6 +76,8 @@
     width: 100%;
     height: 100%;
     align-content: center;
+
+    flex-shrink: 0;
 }
 
 .label {
@@ -132,16 +134,17 @@
 #misc-panel {
     border: 1px solid black;
     border-radius: 10px;
-    height: 512px;
+    height: 171px;
     width: 256px;
-
+    overflow: hidden;
 }
 
 #misc-panel>.section {
     gap: 10px;
     padding-top: 18px;
-    ;
+    width: 100%;
     justify-content: flex-start;
+    flex-shrink: 0;
 }
 
 #brush-range {
@@ -233,3 +236,37 @@
 .red {
     background-color: red;
 }
+
+.expand-from-bot {
+    animation: expand-from-bot 1s ease 0s 1 normal forwards;
+}
+
+.hide-from-bot {
+    animation: hide-from-bot 1s ease 0s 1 normal forwards;
+}
+
+
+@keyframes expand-from-bot {
+	0% {
+		height: 170px;
+		transform-origin: 100% 0%;
+	}
+
+	100% {
+		height: 512px;
+		transform-origin: 100% 0%;
+	}
+}
+
+@keyframes hide-from-bot {
+	0% {
+		height: 512px;
+		transform-origin: 100% 0%;
+	}
+
+	100% {
+		height: 170px;
+		transform-origin: 100% 0%;
+	}
+}
+  

@@ -390,3 +390,26 @@ function destroyGrid() {
         pixel.remove();
     })
 }
+
+const settingsButton = document.getElementById('settings-button');
+const miscPanel = document.getElementById('misc-panel');
+let miscSlide = false;
+
+settingsButton.addEventListener('click', () => {
+    if(miscSlide) {
+        miscPanel.classList.remove('expand-from-bot');
+        miscPanel.classList.add('hide-from-bot');
+        miscPanel.addEventListener('animationend', ()=>{
+            miscSlide = false;
+        })
+    }
+    else {
+        miscPanel.classList.add('expand-from-bot');
+        miscPanel.classList.remove('hide-from-bot');
+        miscPanel.addEventListener('animationend', ()=>{
+            miscSlide = true;
+        })
+    }
+})
+
+
