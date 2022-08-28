@@ -13,7 +13,50 @@ function drawPixel(e) {
     const mousePosition = [e.clientX - canvasBoundingClientRect.left, e.clientY - canvasBoundingClientRect.top]; // mousePosition[0] == canvasX, mousePosition[1] == canvasY
     const pixelCoordX = Math.floor(mousePosition[0] / pixelRatio);
     const pixelCoordY = Math.floor(mousePosition[1] / pixelRatio);
-    ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+
+    switch (brushSize) {
+        case '1b':
+            ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+            break;
+        case '2b':
+            ctx.fillRect(pixelCoordX, pixelCoordY, 2, 2);
+            break;
+        case '3b':
+            ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+            ctx.fillRect(pixelCoordX - 1, pixelCoordY + 1, 1, 1);
+            ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+            ctx.fillRect(pixelCoordX + 1, pixelCoordY + 1, 1, 1);
+            ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+            ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+            ctx.fillRect(pixelCoordX - 1, pixelCoordY - 1, 1, 1);
+            ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+            ctx.fillRect(pixelCoordX + 1, pixelCoordY - 1, 1, 1);
+            break;
+        case '3c':
+            ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+            ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+            ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+            ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+            ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+            break;
+        case '4b':
+            ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
+            ctx.fillRect(pixelCoordX - 1, pixelCoordY + 1, 1, 1);
+            ctx.fillRect(pixelCoordX, pixelCoordY + 1, 1, 1);
+            ctx.fillRect(pixelCoordX + 1, pixelCoordY + 1, 1, 1);
+            ctx.fillRect(pixelCoordX + 1, pixelCoordY, 1, 1);
+            ctx.fillRect(pixelCoordX - 1, pixelCoordY, 1, 1);
+            ctx.fillRect(pixelCoordX - 1, pixelCoordY - 1, 1, 1);
+            ctx.fillRect(pixelCoordX, pixelCoordY - 1, 1, 1);
+            ctx.fillRect(pixelCoordX + 1, pixelCoordY - 1, 1, 1);
+
+            ctx.fillRect(pixelCoordX - 2, pixelCoordY - 2, 1, 1);
+            ctx.fillRect(pixelCoordX - 1, pixelCoordY - 2, 1, 1);
+            ctx.fillRect(pixelCoordX - 0, pixelCoordY - 2, 1, 1);
+            ctx.fillRect(pixelCoordX + 1, pixelCoordY - 2, 1, 1);
+            break;
+
+    }
 }
 
 pixelCanvas.addEventListener('mousedown', (e) => {
@@ -38,8 +81,8 @@ pixelCanvas.addEventListener('mousedown', (e) => {
 const gridColors = document.querySelectorAll('.color');
 const currentColor = document.getElementById('current-color');
 
-function updateCurrentColor () {
-    currentColor.style.backgroundColor =  ctx.fillStyle;
+function updateCurrentColor() {
+    currentColor.style.backgroundColor = ctx.fillStyle;
 }
 
 gridColors.forEach(color => {
@@ -60,15 +103,15 @@ colorPicker.addEventListener('change', () => {
 })
 
 
-function updateAndShiftColorHistory () {
+function updateAndShiftColorHistory() {
     let colorHistory = document.getElementsByClassName('saved-color');
     let foundColor = false;
-    
+
     hexColors.forEach(color => {
-        if(colorPicker.value == color) foundColor = true;
+        if (colorPicker.value == color) foundColor = true;
     })
 
-    if(foundColor) return;
+    if (foundColor) return;
 
     colorHistory[2].style.backgroundColor = colorHistory[1].style.backgroundColor;
     hexColors[2] = hexColors[1];
@@ -86,5 +129,42 @@ savedColors.forEach(savedColor => {
     })
 })
 
+
+const brushSlider = document.getElementById('brush-range');
+const brushDisplayText = document.getElementById('brush-size');
+let brushSize = '1b';
+
+
+brushSlider.addEventListener('input', () => {
+    switch (brushSlider.value) {
+        case '0':
+            brushSlider.value = 1;
+            break;
+        case '1':
+            brushDisplayText.textContent = '1 x 1 BLOCK';
+            brushSize = '1b';
+            break;
+
+        case '2':
+            brushDisplayText.textContent = '2 x 2 BLOCK';
+            brushSize = '2b';
+            break;
+
+        case '3':
+            brushDisplayText.textContent = '3 x 3 BLOCK';
+            brushSize = '3b';
+            break;
+
+        case '4':
+            brushDisplayText.textContent = '3 x 3 CROSS';
+            brushSize = '3c';
+            break;
+
+        case '5':
+            brushDisplayText.textContent = '4 x 4 BLOCK';
+            brushSize = '4b';
+            break;
+    }
+})
 
 
