@@ -3,9 +3,16 @@ ${placeholder_name} is a web application that is used to create simple pixel art
 
 ## TO-DO LIST
 ### COLOR PANEL
+<<<<<<< HEAD
 - [ ] SHOWING CURRENT WORKING COLOR
 - [ ] MAKE FUNCTIONAL COLOR PICKER
 - [ ] INTERACTIVE COLOR HISTORY
+=======
+- [x] SHOWING CURRENT WORKING COLOR
+- [x] MAKE FUNCTIONAL COLOR PICKER
+- [x] INTERACTIVE COLOR HISTORY
+- [ ] (Eye Dropper?)
+>>>>>>> 2a67748 (Update README)
 
 ### MISCELLANEOUS PANEL
 
