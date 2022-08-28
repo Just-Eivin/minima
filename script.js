@@ -8,7 +8,7 @@ const pixelRatio = pixelCanvas.clientWidth / PIXEL_COUNT;
 const ctx = pixelCanvas.getContext('2d');
 let isDrawing = false;
 
-function randomColor () {
+function randomColor() {
     return [Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255)];
 }
 
@@ -256,7 +256,7 @@ eraserButton.addEventListener('click', () => {
 const clearButton = document.getElementById('clear-button');
 
 clearButton.addEventListener('click', () => {
-    if(confirm(`Do you wish to clear the drawing board? \nClearing the drawing board will remove all your progress.`)) ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
+    if (confirm(`Do you wish to clear the drawing board? \nClearing the drawing board will remove all your progress.`)) ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
 })
 
 const rainbowButton = document.getElementById('rainbow-button');
@@ -277,7 +277,7 @@ pixelCanvas.addEventListener('mousemove', (e) => {
     const mousePosition = [e.clientX - canvasBoundingClientRect.left, e.clientY - canvasBoundingClientRect.top]; // mousePosition[0] == canvasX, mousePosition[1] == canvasY
     const pixelCoordX = Math.floor(mousePosition[0] / pixelRatio);
     const pixelCoordY = Math.floor(mousePosition[1] / pixelRatio);
-    if(pixelCoordX > 32) {
+    if (pixelCoordX > 32) {
 
     }
     infoText.textContent = `Coordinates: [${clamp((pixelCoordX + 1), 1, 32)}, ${clamp((pixelCanvas.height - pixelCoordY), 1, 32)}]`
@@ -286,10 +286,23 @@ pixelCanvas.addEventListener('mousemove', (e) => {
     })
 })
 infoButton.addEventListener('click', () => {
-    if(infoText.style.display =='none') {
+    if (infoText.style.display == 'none') {
         infoText.style.display = 'block';
     }
     else infoText.style.display = 'none';
 
 })
 
+const exportButton = document.getElementById('export-button');
+
+exportButton.addEventListener('click', (e) => {
+    if (confirm(`Do you wish to export your drawing to a .png file?`)) {
+        const downloadLink = document.createElement('a');
+        const exportedCanvas = document.getElementById('pixel-canvas');
+        downloadLink.href = exportedCanvas.toDataURL();
+        downloadLink.download = 'drawing_export.png';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
+})
