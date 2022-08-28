@@ -3,8 +3,8 @@
  */
 
 const pixelCanvas = document.getElementById('pixel-canvas');
-const PIXEL_COUNT = 32; // Number of pixels on each side => The actual resolution of the image
-const pixelRatio = pixelCanvas.clientWidth / PIXEL_COUNT;
+let canvasPixelResolution = 32; // Number of pixels on each side => The actual resolution of the image
+let pixelRatio = pixelCanvas.clientWidth / canvasPixelResolution;
 const ctx = pixelCanvas.getContext('2d');
 let isDrawing = false;
 
@@ -256,7 +256,7 @@ eraserButton.addEventListener('click', () => {
 const clearButton = document.getElementById('clear-button');
 
 clearButton.addEventListener('click', () => {
-    if (confirm(`Do you wish to clear the drawing board? \nClearing the drawing board will remove all your progress.`)) ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
+    if (confirm(`Do you wish to clear the canvas? \nClearing the canvas will remove all your drawings.`)) ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
 })
 
 const rainbowButton = document.getElementById('rainbow-button');
@@ -280,7 +280,7 @@ pixelCanvas.addEventListener('mousemove', (e) => {
     if (pixelCoordX > 32) {
 
     }
-    infoText.textContent = `Coordinates: [${clamp((pixelCoordX + 1), 1, 32)}, ${clamp((pixelCanvas.height - pixelCoordY), 1, 32)}]`
+    infoText.textContent = `Coordinates: [${clamp((pixelCoordX + 1), 1, canvasPixelResolution)}, ${clamp((pixelCanvas.height - pixelCoordY), 1, canvasPixelResolution)}]`
     pixelCanvas.addEventListener('mouseleave', () => {
         infoText.textContent = `Coordinates: Out of Bounds`;
     })
@@ -296,7 +296,7 @@ infoButton.addEventListener('click', () => {
 const exportButton = document.getElementById('export-button');
 
 exportButton.addEventListener('click', (e) => {
-    if (confirm(`Do you wish to export your drawing to a .png file?`)) {
+    if (confirm(`Do you wish to export your canvas to a .png file?`)) {
         const downloadLink = document.createElement('a');
         const exportedCanvas = document.getElementById('pixel-canvas');
         downloadLink.href = exportedCanvas.toDataURL();
@@ -306,3 +306,38 @@ exportButton.addEventListener('click', (e) => {
         document.body.removeChild(downloadLink);
     }
 })
+
+const resolutionSettings = document.getElementById('resolution');
+
+
+resolutionSettings.addEventListener('change', () => {
+    if (confirm(`Changing the resolution will clear the whole canvas and delete your drawing. \nDo you wish to proceed?`)) {
+        ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
+        canvasPixelResolution = parseInt(resolutionSettings.value);
+        pixelRatio = pixelCanvas.clientWidth / canvasPixelResolution;
+        pixelCanvas.width = canvasPixelResolution;
+        pixelCanvas.height = canvasPixelResolution;
+    } else {
+        resolutionSettings.selectedIndex = resToIndex(canvasPixelResolution);
+    }
+})
+
+function resToIndex(res) {
+    switch (res) {
+        case 8:
+            return 0;
+            break;
+        case 16:
+            return 1;
+            break;
+
+        case 32:
+            return 2;
+            break;
+
+        case 64:
+            return 3;
+            break;
+
+    }
+}
