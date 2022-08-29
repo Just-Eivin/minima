@@ -134,51 +134,9 @@ function drawPixel(e) {
 
 }
 
-pixelCanvas.addEventListener('mousedown', (e) => {
-    isDrawing = true;
-
-    pixelCanvas.addEventListener('mousemove', (e) => {
-        if (!isDrawing) return;
-        drawPixel(e);
-    })
-
-    drawPixel(e);
-
-    document.addEventListener('mouseup', () => {
-        isDrawing = false;
-    })
-
-    window.oncontextmenu = function () {
-        isDrawing = false;
-    }
-})
-
-const gridColors = document.querySelectorAll('.color');
-const currentColor = document.getElementById('current-color');
-
 function updateCurrentColor() {
     currentColor.style.backgroundColor = ctx.fillStyle;
 }
-
-gridColors.forEach(color => {
-    color.addEventListener('click', () => {
-        ctx.fillStyle = window.getComputedStyle(color).backgroundColor;
-        drawingMode = 'brush';
-        updateCurrentColor();
-    })
-})
-
-const colorPicker = document.getElementById('color-picker');
-
-let hexColors = ['#FFFFFF', '#FFFFFF', '#FFFFFF'];
-
-colorPicker.addEventListener('change', () => {
-    ctx.fillStyle = colorPicker.value;
-    drawingMode = 'brush';
-    updateCurrentColor();
-    updateAndShiftColorHistory();
-})
-
 
 function updateAndShiftColorHistory() {
     let colorHistory = document.getElementsByClassName('saved-color');
@@ -198,6 +156,90 @@ function updateAndShiftColorHistory() {
     hexColors[0] = colorPicker.value;
 }
 
+function clamp(val, min, max) {
+    return val > max ? max : val < min ? min : val;
+}
+
+function resToIndex(res) {
+    switch (res) {
+        case 8:
+            return 0;
+            break;
+        case 16:
+            return 1;
+            break;
+
+        case 32:
+            return 2;
+            break;
+
+        case 64:
+            return 3;
+            break;
+
+    }
+}
+
+function createGrid() {
+    gridOverlay.style.gridTemplateColumns = `repeat(${canvasPixelResolution}, 1fr)`;
+    gridOverlay.style.gridTemplateRows = `repeat(${canvasPixelResolution}, 1fr)`;
+    let amountOfSquares = canvasPixelResolution * canvasPixelResolution;
+    for (i = 1; i <= amountOfSquares; i++) {
+        const newSquare = document.createElement('div');
+        newSquare.classList.add('grid-pixel');
+        newSquare.style.width = `${pixelRatio - 2}px`;
+        newSquare.style.height = `${pixelRatio - 2}px`;
+        gridOverlay.appendChild(newSquare);
+    }
+}
+
+function destroyGrid() {
+    gridStatus = 'off';
+    let gridPixels = document.querySelectorAll('.grid-pixel');
+    gridPixels.forEach(pixel => {
+        pixel.remove();
+    })
+}
+
+
+pixelCanvas.addEventListener('mousedown', (e) => {
+    isDrawing = true;
+
+    pixelCanvas.addEventListener('mousemove', (e) => {
+        if (!isDrawing) return;
+        drawPixel(e);
+    })
+
+    drawPixel(e);
+
+    document.addEventListener('mouseup', () => {
+        isDrawing = false;
+    })
+
+    window.oncontextmenu = function () {
+        isDrawing = false;
+    }
+})
+
+const paletteItems = document.querySelectorAll('.palette-item');
+const currentColor = document.getElementById('current-color');
+paletteItems.forEach(color => {
+    color.addEventListener('click', () => {
+        ctx.fillStyle = window.getComputedStyle(color).backgroundColor;
+        drawingMode = 'brush';
+        updateCurrentColor();
+    })
+})
+
+const colorPicker = document.getElementById('color-picker');
+colorPicker.addEventListener('change', () => {
+    ctx.fillStyle = colorPicker.value;
+    drawingMode = 'brush';
+    updateCurrentColor();
+    updateAndShiftColorHistory();
+})
+
+
 const savedColors = document.querySelectorAll('.saved-color');
 savedColors.forEach(savedColor => {
     savedColor.addEventListener('click', () => {
@@ -207,34 +249,31 @@ savedColors.forEach(savedColor => {
     })
 })
 
-
-const brushSlider = document.getElementById('brush-range');
-const brushDisplayText = document.getElementById('brush-size');
+const brushSlider = document.getElementById('brush-slider');
+const brushDisplayText = document.getElementById('brush-size-display');
 let brushSize = '1b';
-
-
 brushSlider.addEventListener('input', () => {
     switch (brushSlider.value) {
         case '0':
             brushSlider.value = 1;
             break;
         case '1':
-            brushDisplayText.textContent = '1 x 1 BLOCK';
+            brushDisplayText.textContent = 'BRUSH: 1 x 1 BLOCK';
             brushSize = '1b';
             break;
 
         case '2':
-            brushDisplayText.textContent = '2 x 2 BLOCK';
+            brushDisplayText.textContent = 'BRUSH: 2 x 2 BLOCK';
             brushSize = '2b';
             break;
 
         case '3':
-            brushDisplayText.textContent = '3 x 3 BLOCK';
+            brushDisplayText.textContent = 'BRUSH: 3 x 3 BLOCK';
             brushSize = '3b';
             break;
 
         case '4':
-            brushDisplayText.textContent = '3 x 3 CROSS';
+            brushDisplayText.textContent = 'BRUSH: 3 x 3 CROSS';
             brushSize = '3c';
             break;
     }
@@ -242,9 +281,7 @@ brushSlider.addEventListener('input', () => {
 
 const brushButton = document.getElementById('brush-button');
 const eraserButton = document.getElementById('eraser-button');
-
 let drawingMode = 'brush';
-
 brushButton.addEventListener('click', () => {
     drawingMode = 'brush';
 })
@@ -253,9 +290,7 @@ eraserButton.addEventListener('click', () => {
     drawingMode = 'eraser';
 })
 
-
 const clearButton = document.getElementById('clear-button');
-
 clearButton.addEventListener('click', () => {
     if (confirm(`Do you wish to clear the canvas? \nClearing the canvas will remove all your drawings.`)) ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
 })
@@ -268,11 +303,6 @@ rainbowButton.addEventListener('click', () => {
 const infoButton = document.getElementById('info-button');
 const infoText = document.getElementById('info-text');
 infoText.style.display = 'none';
-
-function clamp(val, min, max) {
-    return val > max ? max : val < min ? min : val;
-}
-
 pixelCanvas.addEventListener('mousemove', (e) => {
     const canvasBoundingClientRect = pixelCanvas.getBoundingClientRect();
     const mousePosition = [e.clientX - canvasBoundingClientRect.left, e.clientY - canvasBoundingClientRect.top]; // mousePosition[0] == canvasX, mousePosition[1] == canvasY
@@ -295,7 +325,6 @@ infoButton.addEventListener('click', () => {
 })
 
 const exportButton = document.getElementById('export-button');
-
 exportButton.addEventListener('click', (e) => {
     if (confirm(`Do you wish to export your canvas to a .png file?`)) {
         const downloadLink = document.createElement('a');
@@ -308,12 +337,10 @@ exportButton.addEventListener('click', (e) => {
     }
 })
 
-const resolutionSettings = document.getElementById('resolution');
-
-
+const resolutionSettings = document.getElementById('resolution-select');
 resolutionSettings.addEventListener('change', () => {
     if (confirm(`Changing the resolution will clear the whole canvas and delete your drawing. \nDo you wish to proceed?`)) {
-        if(gridStatus == 'on' || gridStatus == 'hidden') destroyGrid();
+        if (gridStatus == 'on' || gridStatus == 'hidden') destroyGrid();
         ctx.clearRect(0, 0, pixelCanvas.width, pixelCanvas.height);
         canvasPixelResolution = parseInt(resolutionSettings.value);
         pixelRatio = pixelCanvas.clientWidth / canvasPixelResolution;
@@ -325,89 +352,42 @@ resolutionSettings.addEventListener('change', () => {
     }
 })
 
-function resToIndex(res) {
-    switch (res) {
-        case 8:
-            return 0;
-            break;
-        case 16:
-            return 1;
-            break;
-
-        case 32:
-            return 2;
-            break;
-
-        case 64:
-            return 3;
-            break;
-
-    }
-}
 
 const gridButton = document.getElementById('grid-button');
 let gridOverlay = document.getElementById('grid');
 let gridStatus = 'off';
-
 gridButton.addEventListener('click', () => {
-    switch(gridStatus) {
+    switch (gridStatus) {
         case 'off':
             createGrid();
             gridStatus = 'on';
-            console.log(gridStatus);
             break;
         case 'hidden':
             gridOverlay.style.visibility = 'visible';
-            console.log('grid was hidden, turning it on');
             gridStatus = 'on';
-            console.log(gridStatus);
             break;
         case 'on':
             gridOverlay.style.visibility = 'hidden';
             gridStatus = 'hidden';
-            console.log(gridStatus);
 
     }
 })
 
-
-function createGrid() {
-    gridOverlay.style.gridTemplateColumns = `repeat(${canvasPixelResolution}, 1fr)`;
-    gridOverlay.style.gridTemplateRows = `repeat(${canvasPixelResolution}, 1fr)`;
-    let amountOfSquares = canvasPixelResolution * canvasPixelResolution;
-    for (i = 1; i <= amountOfSquares; i++) {
-        const newSquare = document.createElement('div');
-        newSquare.classList.add('grid-pixel');
-        newSquare.style.width = `${pixelRatio-2}px`;
-        newSquare.style.height = `${pixelRatio-2}px`;
-        gridOverlay.appendChild(newSquare);
-    }
-}
-
-function destroyGrid() {
-    gridStatus = 'off';
-    let gridPixels = document.querySelectorAll('.grid-pixel');
-    gridPixels.forEach(pixel => {
-        pixel.remove();
-    })
-}
-
 const settingsButton = document.getElementById('settings-button');
 const miscPanel = document.getElementById('misc-panel');
 let miscSlide = false;
-
 settingsButton.addEventListener('click', () => {
-    if(miscSlide) {
-        miscPanel.classList.remove('expand-from-bot');
-        miscPanel.classList.add('hide-from-bot');
-        miscPanel.addEventListener('animationend', ()=>{
+    if (miscSlide) {
+        miscPanel.classList.remove('expand-panel');
+        miscPanel.classList.add('shrink-panel');
+        miscPanel.addEventListener('animationend', () => {
             miscSlide = false;
         })
     }
     else {
-        miscPanel.classList.add('expand-from-bot');
-        miscPanel.classList.remove('hide-from-bot');
-        miscPanel.addEventListener('animationend', ()=>{
+        miscPanel.classList.add('expand-panel');
+        miscPanel.classList.remove('shrink-panel');
+        miscPanel.addEventListener('animationend', () => {
             miscSlide = true;
         })
     }

@@ -12,19 +12,19 @@
 <body>
     <div id="wrapper">
         <div id="grid"></div>
-        <div id="control-panel">
-            <div class="section">
+        <div id="color-panel">
+            <div class="panel-content">
                 <p class="label">COLOR PALETTE</p>
-                <div id="color-grid">
-                    <div class="color red"></div>
-                    <div class="color green"></div>
-                    <div class="color blue"></div>
-                    <div class="color yellow"></div>
-                    <div class="color brown"></div>
-                    <div class="color purple"></div>
-                    <div class="color white"></div>
-                    <div class="color gray"></div>
-                    <div class="color black"></div>
+                <div id="color-palette">
+                    <div class="palette-item red"></div>
+                    <div class="palette-item green"></div>
+                    <div class="palette-item blue"></div>
+                    <div class="palette-item yellow"></div>
+                    <div class="palette-item brown"></div>
+                    <div class="palette-item purple"></div>
+                    <div class="palette-item white"></div>
+                    <div class="palette-item gray"></div>
+                    <div class="palette-item black"></div>
                 </div>
                 <p class="label">CURRENT COLOR</p>
                 <div id="current-color"></div>
@@ -44,35 +44,35 @@
         </div>
 
         <div id="misc-panel">
-            <div class="section">
+            <div class="panel-content">
                 <div>
-                    <span style="margin: 0" class="label">BRUSH: </span>
-                    <span id="brush-size">1 x 1 BLOCK</span>
-                </div>
-                <input id="brush-range" type="range" value="1" min="0" max="4">
+                <p class="label" id="brush-size-display">BRUSH: 1 x 1 BLOCK</p>
+                <input id="brush-slider" type="range" value="1" min="0" max="4">
+            </div>
                 <div>
-                    <button id="brush-button" class="button">BRUSH</button>
-                    <button id="eraser-button" class="button">ERASER</button>
+                    <button id="brush-button" class="small-button">BRUSH</button>
+                    <button id="eraser-button" class="small-button">ERASER</button>
                 </div>
-                <button style="width: 209.61px;" id="clear-button" class="button">CLEAR</button>
-                <button style="width: 209.61px;" id="settings-button" class="button">SETTINGS</button>
-                <button style="width: 209.61px;" id="rainbow-button" class="button">RAINBOW</button>
+                <button id="clear-button" class="long-button">CLEAR</button>
+                <button id="settings-button" class="long-button">SETTINGS</button>
+                <button id="rainbow-button" class="long-button">RAINBOW</button>
                 <div>
-                    <button id="grid-button" class="button">GRID</button>
-                    <button id="info-button" class="button">INFO</button>
+                    <button id="grid-button" class="small-button">GRID</button>
+                    <button id="info-button" class="small-button">INFO</button>
                 </div>
-                <button id='export-button' class="button export">EXPORT</button>
-                <p class="label">RESOLUTION</p>
-                <select name="resolution" id="resolution">
+                <button id='export-button' class="long-button">EXPORT</button>
+                <p class="label" style="margin-bottom: -27px;">RESOLUTION</p>
+                <p class="label" style="margin-bottom: -10px; font-size: 10px;">[px]</p>
+                <select name="resolution" id="resolution-select">
                     <option value="8">8 x 8</option>
                     <option value="16">16 x 16</option>
                     <option value="32" selected="selected">32 x 32</option>
                     <option value="64">64 x 64</option>
                 </select>
-                <p class="label">THEME</p>
+                <p class="label" style="margin-bottom: -10px;">THEME</p>
                 <div>
-                    <button class="button">LIGHT</button>
-                    <button class="button">DARK</button>
+                    <button class="small-button">LIGHT</button>
+                    <button class="small-button">DARK</button>
                 </div>
             </div>
         </div>
