@@ -9,13 +9,13 @@
     <title>Pixel Editor</title>
 </head>
 
-<body>
+<body class="theme">
     <div id="wrapper">
         <div id="grid"></div>
-        <div id="color-panel">
+        <div id="color-panel" class="theme">
             <div class="panel-content">
                 <p class="label">COLOR PALETTE</p>
-                <div id="color-palette">
+                <div id="color-palette" class="theme">
                     <div class="palette-item red"></div>
                     <div class="palette-item green"></div>
                     <div class="palette-item blue"></div>
@@ -29,7 +29,7 @@
                 <p class="label">CURRENT COLOR</p>
                 <div id="current-color"></div>
                 <p class="label">COLOR PICKER</p>
-                <input id="color-picker" type="color">
+                <input id="color-picker" type="color" class="theme">
                 <p class="label">COLOR HISTORY</p>
                 <div id="color-history">
                     <div class="saved-color"></div>
@@ -39,31 +39,31 @@
             </div>
         </div>
         <div>
-            <canvas id="pixel-canvas" width="32" height="32"></canvas>
+            <canvas id="pixel-canvas" class="theme" width="32" height="32"></canvas>
             <p id="info-text">Coordinates: [0, 0]</p>
         </div>
 
-        <div id="misc-panel">
+        <div id="misc-panel" class="theme">
             <div class="panel-content">
                 <div>
                 <p class="label" id="brush-size-display">BRUSH: 1 x 1 BLOCK</p>
-                <input id="brush-slider" type="range" value="1" min="0" max="4">
+                <input id="brush-slider" type="range" value="1" min="0" max="4" class="theme">
             </div>
                 <div>
-                    <button id="brush-button" class="small-button">BRUSH</button>
-                    <button id="eraser-button" class="small-button">ERASER</button>
+                    <button id="brush-button" class="small-button theme activated-button">BRUSH</button>
+                    <button id="eraser-button" class="small-button theme">ERASER</button>
                 </div>
-                <button id="clear-button" class="long-button">CLEAR</button>
-                <button id="settings-button" class="long-button">SETTINGS</button>
-                <button id="rainbow-button" class="long-button">RAINBOW</button>
+                <button id="clear-button" class="long-button theme">CLEAR</button>
+                <button id="settings-button" class="long-button theme">SETTINGS</button>
+                <button id="rainbow-button" class="long-button theme">RAINBOW</button>
                 <div>
-                    <button id="grid-button" class="small-button">GRID</button>
-                    <button id="info-button" class="small-button">INFO</button>
+                    <button id="grid-button" class="small-button theme">GRID</button>
+                    <button id="info-button" class="small-button theme">INFO</button>
                 </div>
-                <button id='export-button' class="long-button">EXPORT</button>
+                <button id='export-button' class="long-button theme">EXPORT</button>
                 <p class="label" style="margin-bottom: -27px;">RESOLUTION</p>
                 <p class="label" style="margin-bottom: -10px; font-size: 10px;">[px]</p>
-                <select name="resolution" id="resolution-select">
+                <select name="resolution" id="resolution-select" class="theme">
                     <option value="8">8 x 8</option>
                     <option value="16">16 x 16</option>
                     <option value="32" selected="selected">32 x 32</option>
@@ -71,8 +71,8 @@
                 </select>
                 <p class="label" style="margin-bottom: -10px;">THEME</p>
                 <div>
-                    <button class="small-button">LIGHT</button>
-                    <button class="small-button">DARK</button>
+                    <button id="light-theme-button" class="small-button theme">LIGHT</button>
+                    <button id="dark-theme-button" class="small-button theme">DARK</button>
                 </div>
             </div>
         </div>

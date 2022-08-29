@@ -8,6 +8,15 @@ let canvasPixelResolution = DEFAULT_RESOLUTION; // Number of pixels on each side
 let pixelRatio = pixelCanvas.clientWidth / canvasPixelResolution;
 const ctx = pixelCanvas.getContext('2d');
 let isDrawing = false;
+let hexColors = ['#FFFFFF', '#FFFFFF', '#FFFFFF'];
+let brushButtonActivated = true;
+let eraserButtonActivated = false;
+let settingsButtonActivated = false;
+let rainbowButtonActivated = false;
+let gridButtonActivated = false;
+let infoButtonActivated = false;
+let lightButtonActivated = true;
+let darkButtonActivated = false;
 
 function randomColor() {
     return [Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255), Math.floor((Math.random()) * 255)];
@@ -20,6 +29,7 @@ function drawPixel(e) {
     const pixelCoordY = Math.floor(mousePosition[1] / pixelRatio);
 
     if (drawingMode == 'brush') {
+        ctx.fillStyle = window.getComputedStyle(currentColor).backgroundColor;
         switch (brushSize) {
             case '1b':
                 ctx.fillRect(pixelCoordX, pixelCoordY, 1, 1);
@@ -282,12 +292,47 @@ brushSlider.addEventListener('input', () => {
 const brushButton = document.getElementById('brush-button');
 const eraserButton = document.getElementById('eraser-button');
 let drawingMode = 'brush';
+
+function turnDrawingMode (mode) {
+    switch (mode) {
+        case 'brush':
+            drawingMode = 'brush';
+            brushButton.classList.add('activated-button');
+            brushButtonActivated = true;
+            eraserButton.classList.remove('activated-button');
+            eraserButtonActivated = false;
+            rainbowButton.classList.remove('activated-button');
+            rainbowButtonActivated = false;
+            break;
+        case 'eraser':
+            drawingMode = 'eraser';
+            eraserButton.classList.add('activated-button');
+            eraserButtonActivated = true;
+            brushButton.classList.remove('activated-button');
+            brushButtonActivated = false;
+            rainbowButton.classList.remove('activated-button');
+            rainbowButtonActivated = false;
+            break;
+        case 'rainbow':
+            drawingMode = 'rainbow';
+            rainbowButton.classList.add('activated-button');
+            rainbowButtonActivated = true;
+            brushButton.classList.remove('activated-button');
+            brushButtonActivated = false;
+            eraserButton.classList.remove('activated-button');
+            eraserButtonActivated = false;
+            break;
+    }
+}
+
 brushButton.addEventListener('click', () => {
-    drawingMode = 'brush';
+    if(!brushButtonActivated) {
+        turnDrawingMode('brush');
+    }
 })
 
 eraserButton.addEventListener('click', () => {
-    drawingMode = 'eraser';
+    turnDrawingMode('eraser');
 })
 
 const clearButton = document.getElementById('clear-button');
@@ -297,7 +342,7 @@ clearButton.addEventListener('click', () => {
 
 const rainbowButton = document.getElementById('rainbow-button');
 rainbowButton.addEventListener('click', () => {
-    drawingMode = 'rainbow';
+    turnDrawingMode('rainbow');
 })
 
 const infoButton = document.getElementById('info-button');
@@ -318,9 +363,13 @@ pixelCanvas.addEventListener('mousemove', (e) => {
 })
 infoButton.addEventListener('click', () => {
     if (infoText.style.display == 'none') {
+        infoButton.classList.add('activated-button');
         infoText.style.display = 'block';
     }
-    else infoText.style.display = 'none';
+    else {
+        infoText.style.display = 'none';
+        infoButton.classList.remove('activated-button');
+    }
 
 })
 
@@ -361,13 +410,16 @@ gridButton.addEventListener('click', () => {
         case 'off':
             createGrid();
             gridStatus = 'on';
+            gridButton.classList.add('activated-button');
             break;
         case 'hidden':
             gridOverlay.style.visibility = 'visible';
+            gridButton.classList.add('activated-button');
             gridStatus = 'on';
             break;
         case 'on':
             gridOverlay.style.visibility = 'hidden';
+            gridButton.classList.remove('activated-button');
             gridStatus = 'hidden';
 
     }
@@ -382,15 +434,83 @@ settingsButton.addEventListener('click', () => {
         miscPanel.classList.add('shrink-panel');
         miscPanel.addEventListener('animationend', () => {
             miscSlide = false;
+            settingsButton.classList.remove('activated-button');
         })
     }
     else {
+        settingsButton.classList.add('activated-button');
         miscPanel.classList.add('expand-panel');
         miscPanel.classList.remove('shrink-panel');
         miscPanel.addEventListener('animationend', () => {
             miscSlide = true;
+            settingsButton.classList.add('activated-button');
         })
     }
 })
+
+const darkButton = document.getElementById('dark-theme-button');
+const lightButton = document.getElementById('light-theme-button');
+let currentTheme = 'light';
+
+darkButton.addEventListener('click', () => {
+    if(currentTheme == 'dark') return;
+    const themeElements = document.querySelectorAll('.theme');
+    themeElements.forEach(element => {
+        currentTheme = 'dark';
+        element.classList.add('theme-dark');
+        element.classList.remove('theme-light');
+    })
+})
+
+lightButton.addEventListener('click', () => {
+    if(currentTheme == 'light') return;
+    const themeElements = document.querySelectorAll('.theme');
+    themeElements.forEach(element => {
+        currentTheme = 'light';
+        element.classList.add('theme-light');
+        element.classList.remove('theme-dark');
+    })
+})
+
+function playInitAnims () {
+    const animLeftPanel = document.getElementById('color-panel');
+    const animRightPanel = document.getElementById('misc-panel');
+    const panelControls = document.querySelectorAll('.panel-content')
+    
+    window.addEventListener('load', () => {
+        animLeftPanel.style.zIndex = '-1';
+        animRightPanel.style.zIndex = '-1';
+        setTimeout(()=>{
+            pixelCanvas.classList.add('init-anim-canvas-border'); 
+        }, 1000);  
+        
+        pixelCanvas.addEventListener('animationend', () => {
+            animLeftPanel.classList.add('init-anim-left-panel');
+            animRightPanel.classList.add('init-anim-right-panel');
+    
+            animRightPanel.addEventListener('animationend', ()=>{
+                panelControls.forEach(panel => {
+                    panel.style.pointerEvents = 'all';
+                });
+                pixelCanvas.style.pointerEvents = 'all';
+                animLeftPanel.style.zIndex = '1';
+                animRightPanel.style.zIndex = '1';
+    
+                //destroy anims and set position
+                animLeftPanel.style.marginRight = '1000px';
+                animLeftPanel.style.border = '1px solid black';
+                animLeftPanel.classList.remove('init-anim-left-panel');
+                animRightPanel.style.marginLeft = '1000px';
+                animRightPanel.style.border = '1px solid black';
+                animRightPanel.classList.remove('init-anim-right-panel');
+            })
+        });
+    })
+}
+
+
+playInitAnims();
+
+
 
 
