@@ -157,7 +157,8 @@ body {
     min-height: 30px;
     width: 100px;
     border: 1px solid black;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 400;
     text-align: center;
 }
 
