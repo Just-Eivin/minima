@@ -40,6 +40,11 @@ body {
     visibility: visible;
 }
 
+optgroup {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 400;
+}
+
 #color-palette {
     width: 154px;
     height: 154px;

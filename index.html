@@ -8,7 +8,9 @@
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
 
     <link rel="icon" type="image/x-icon" href="./gfx/favico.ico">
     <title>MINIMA</title>
@@ -51,9 +53,9 @@
         <div id="misc-panel" class="theme">
             <div class="panel-content">
                 <div>
-                <p class="label" id="brush-size-display">BRUSH: 1 x 1 BLOCK</p>
-                <input id="brush-slider" type="range" value="1" min="0" max="4" class="theme">
-            </div>
+                    <p class="label" id="brush-size-display">BRUSH: 1 x 1 BLOCK</p>
+                    <input id="brush-slider" type="range" value="1" min="0" max="4" class="theme">
+                </div>
                 <div>
                     <button id="brush-button" class="small-button theme activated-button">BRUSH</button>
                     <button id="eraser-button" class="small-button theme">ERASER</button>
@@ -69,10 +71,12 @@
                 <p class="label" style="margin-bottom: -27px;">RESOLUTION</p>
                 <p class="label" style="margin-bottom: -10px; font-size: 10px;">[px]</p>
                 <select name="resolution" id="resolution-select" class="theme">
-                    <option value="8">8 x 8</option>
-                    <option value="16">16 x 16</option>
-                    <option value="32" selected="selected">32 x 32</option>
-                    <option value="64">64 x 64</option>
+                    <optgroup>
+                        <option value="8">8 x 8</option>
+                        <option value="16">16 x 16</option>
+                        <option value="32" selected="selected">32 x 32</option>
+                        <option value="64">64 x 64</option>
+                    </optgroup>
                 </select>
                 <p class="label" style="margin-bottom: -10px;">THEME</p>
                 <div>
