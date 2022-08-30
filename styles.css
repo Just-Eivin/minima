@@ -1,11 +1,13 @@
 body {
     z-index: -10;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 400;
 }
 
 #wrapper {
     margin-top: 15vh;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 400;
     display: flex;
     align-content: center;
     justify-content: space-evenly;
@@ -103,7 +105,7 @@ body {
 }
 
 #misc-panel {
-    height: 201px;
+    height: 208px;
     min-width: 256px;
     border: 1px solid white;
     border-radius: 10px;
@@ -185,7 +187,8 @@ p {
 .long-button {
     min-height: 30px;
     border: 1px solid black;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 400;
 }
 
 .small-button {
@@ -356,7 +359,7 @@ p {
 
 @keyframes expand-panel {
     0% {
-        height: 201px;
+        height: 208px;
         transform-origin: 100% 0%;
     }
 
@@ -373,7 +376,7 @@ p {
     }
 
     100% {
-        height: 201px;
+        height: 208px;
         transform-origin: 100% 0%;
     }
 }
