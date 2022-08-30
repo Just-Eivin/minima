@@ -1,5 +1,6 @@
 body {
     z-index: -10;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #wrapper {
@@ -122,6 +123,24 @@ body {
     width: 200px;
     height:10px;
     margin-bottom: 10px;
+}
+
+#brush-slider::-moz-range-track {
+    appearance: none;
+    background-color: white;
+    border: 1px solid black;
+    width: 200px;
+    height:10px;
+    margin-bottom: 10px;
+}
+
+#brush-slider::-moz-range-thumb{
+    appearance: none;
+    background-color: white;
+    border: 1px solid black;
+    width: 10px;
+    height: 26px;
+    border-radius: 0;
 }
 
 #brush-slider::-webkit-slider-thumb {
